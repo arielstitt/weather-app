@@ -11,8 +11,8 @@ public class WeatherService {
     @Value("${api_key}")
     private String apiKey;
 
-    public Response getForcast(String zipcode) {
-        String url = "http://api.openweathermap.org/data/2.5/weather?zip=" + zipcode + "&units=imperial&appid="
+    public Response getForcast(Object object) {
+        String url = "http://api.openweathermap.org/data/2.5/weather?zip=" + object + "&units=imperial&appid="
                 + apiKey;
         //resttemlplate is used to send the request out to the api 
         RestTemplate restTemplate = new RestTemplate();

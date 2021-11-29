@@ -1,5 +1,6 @@
 package com.tts.weatherapp.controller;
 
+import com.tts.weatherapp.domain.Request;
 import com.tts.weatherapp.domain.Response;
 import com.tts.weatherapp.services.WeatherService;
 
@@ -7,17 +8,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class WeatherController {
+    
     @Autowired
     private WeatherService weatherService;
 
-    //get request
-    @GetMapping("/") //index endpoint
+    @GetMapping("/")
     public String getIndex(Model model){
-        Response response = weatherService.getForcast("30308");
-        model.addAttribute(("data"), response);
+        model.addAttribute("request", new Request());
+        return "index";
+    }
+
+    @PostMapping("/")
+    public String postIndex(Request request, Model model){
+        Response data = weatherService.getForcast(request.getZipCode());
+        model.addAttribute("data", data);
         return "index";
     }
 }
